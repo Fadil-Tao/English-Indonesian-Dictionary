@@ -6,13 +6,12 @@ public class Tree {
     public void root(Node root) {
         this.root = root;
     }
-    
-    
+
     public boolean isRed(String key) {
         Node node = isExist(root, key);
-        
+
         boolean red = node.isRed();
-        
+
         if (!red) {
             System.out.println("Node is Black " + key);
         } else {
@@ -20,7 +19,7 @@ public class Tree {
         }
         return red;
     }
-    
+
     public boolean isExist(String key) {
         Node node = isExist(root, key);
         boolean exist = true;
@@ -37,30 +36,45 @@ public class Tree {
         if (parent == null) {
             return parent;
         } else {
-            if (parent.getKey() == key) {
+            if (parent.getKey().compareTo(key) == 0) {
                 return parent;
             }
-            if (parent.getKey().compareTo(key) >0 ) {
+            if (parent.getKey().compareTo(key) > 0) {
                 return isExist(parent.getLeft(), key);
             } else {
                 return isExist(parent.getRight(), key);
             }
         }
     }
+    private Node isExistValue(Node parent, String value) {
+        if (parent == null) {
+            return parent;
+        } else {
+            if (parent.getValue().compareTo(value) == 0) {
+                return parent;
+            }
+            if (parent.getValue().compareTo(value) > 0) {
+                return isExist(parent.getLeft(), value);
+            } else {
+                return isExist(parent.getRight(), value);
+            }
+        }
+    }
+
     public boolean search(String key) {
         boolean found = search(root, key);
         System.out.println(found);
         return found;
     }
-    
-    private boolean search(Node parent,String key) {
+
+    public boolean search(Node parent, String key) {
         if (parent == null) {
             return false;
         } else {
-            if (parent.getKey() == key) {
+            if (parent.getKey().compareTo(key) == 0) {
                 return true;
             }
-            if (parent.getKey().compareTo(key) >0) {
+            if (parent.getKey().compareTo(key) > 0) {
                 return search(parent.getLeft(), key);
             } else {
                 return search(parent.getRight(), key);
@@ -68,8 +82,24 @@ public class Tree {
         }
     }
 
+    public boolean searchValue(Node parent, String value) {
+        if (parent == null) {                 
+
+            return false;
+        } else {
+            if (parent.getValue().compareTo(value) == 0) {
+                return true;
+            }
+            if (parent.getValue().compareTo(value) > 0) {
+                return search(parent.getLeft(), value);
+            } else {
+                return search(parent.getRight(), value);
+            }
+        }
+    }
+
     public boolean add(String key, String value) {
-        Node node = new Node(key,value);
+        Node node = new Node(key, value);
         boolean isThere = search(root, key);
 
         if (isThere) {
@@ -98,7 +128,6 @@ public class Tree {
             parent.setRight(insert(parent.getRight(), node));
             parent.getRight().setParent(parent);
         }
-
         return parent;
     }
 
@@ -122,7 +151,7 @@ public class Tree {
         if (node == null) {
             return node;
         }
-        if (key.compareTo(node.getKey())< 0) {
+        if (key.compareTo(node.getKey()) < 0) {
             node.setLeft(remove(node.getLeft(), key));
         } else if (key.compareTo(node.getKey()) > 0) {
             node.setRight(remove(node.getRight(), key));
@@ -230,20 +259,35 @@ public class Tree {
         }
     }
 
-    public String getResult(String key){
+    public String getResultKey(String key) {
         if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
+            System.out.println("not exist");
             Node similiar = similarKey(root, key);
             return similiar.getKey();
-        }  
+        }
         Node node = isExist(root, key);
         String result = node.getValue();
         return result;
     }
 
+    public String getResultValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        boolean exist = searchValue(root, value);
+        if (!exist) {
+            System.out.println("not exist");
+            Node similiar = similarValue(root, value);
+            return similiar.getValue();
+        }
+        Node node = isExistValue(root, value);
+        String result = node.getKey();
+        return result;
+    }
 
     public Node similarKey(Node parent, String key) {
         if (parent == null) {
@@ -254,15 +298,29 @@ public class Tree {
         }
         if (parent.getKey().compareTo(key) >= 0) {
             return similarKey(parent.getLeft(), key);
-        }else{
+        } else {
             return similarKey(parent.getRight(), key);
         }
     }
-    
+
+    public Node similarValue(Node parent, String key) {
+        if (parent == null) {
+            return null;
+        }
+        if (parent.getKey().compareTo(key) >= 0 && parent.getKey().startsWith(key)) {
+            return parent;
+        }
+        if (parent.getKey().compareTo(key) >= 0) {
+            return similarKey(parent.getLeft(), key);
+        } else {
+            return similarKey(parent.getRight(), key);
+        }
+    }
+
     public void inorderTraversal(Node node) {
         if (node != null) {
-            inorderTraversal(node.getLeft() );
-            System.out.print(node.getKey()+  " ");
+            inorderTraversal(node.getLeft());
+            System.out.print(node.getKey() + " ");
             inorderTraversal(node.getRight());
         }
     }
@@ -271,7 +329,7 @@ public class Tree {
         if (node == null) {
             return;
         }
-        System.out.print(node.getKey() +  " ");
+        System.out.print(node.getKey() + " ");
         preorderTraversal(node.getLeft());
         preorderTraversal(node.getRight());
     }
@@ -288,7 +346,5 @@ public class Tree {
     public Node getRoot() {
         return root;
     }
-    
-    
 
 }

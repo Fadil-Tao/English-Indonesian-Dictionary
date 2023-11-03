@@ -14,9 +14,6 @@ public class Main {
             String workingDir = System.getProperty("user.dir") + "\\src\\Source";
 
             absoluteFilePath = workingDir + File.separator + filename;
-            // System.out.println(absoluteFilePath);
-            // System.out.println(new File(".").getAbsoluteFile());
-
             FileReader fileReader = new FileReader(absoluteFilePath);
             try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 int i = 0 ;
@@ -38,7 +35,6 @@ public class Main {
                 tree.add(stringArray[i], stringArray[i+1]);
             }
         }
-       tree.inorderTraversal(tree.getRoot());
-
+        tree.getResultValue("fork");
     }
 }

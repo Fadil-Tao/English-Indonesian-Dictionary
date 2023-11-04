@@ -7,7 +7,8 @@ import java.io.FileReader;
 public class Main {
     public static void main(String[] args) {
         String[] stringArray = new String[82];
-        Tree tree = new Tree();
+        Tree IdEnTree = new Tree();  // Indonesia -> English
+        Tree EnIdTree = new Tree();  // English -> Indonesia 
         try {
             String filename = "KataKunci.txt";
             String absoluteFilePath = "";
@@ -32,9 +33,21 @@ public class Main {
 
         for (int i = 0; i < stringArray.length; i +=2) {
             if (i + 1 < stringArray.length) {
-                tree.add(stringArray[i], stringArray[i+1]);
+                IdEnTree.add(stringArray[i], stringArray[i+1]);
             }
         }
-        tree.getResultValue("fork");
+        for (int i = 0; i < stringArray.length; i +=2) {
+            if (i + 1 < stringArray.length) {
+                EnIdTree.add(stringArray[i + 1], stringArray[i]);
+            }
+        }
+        System.out.println("English Key : ");
+        EnIdTree.inorderTraversal(EnIdTree.getRoot());
+        System.out.println(" ");
+        System.out.println("Indonesian Key : ");
+        IdEnTree.inorderTraversal(IdEnTree.getRoot());
+
+        // System.out.println(EnIdTree.getResult("door"));;
+       
     }
 }

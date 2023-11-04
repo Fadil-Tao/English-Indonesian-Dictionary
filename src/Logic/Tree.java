@@ -46,20 +46,8 @@ public class Tree {
             }
         }
     }
-    private Node isExistValue(Node parent, String value) {
-        if (parent == null) {
-            return parent;
-        } else {
-            if (parent.getValue().compareTo(value) == 0) {
-                return parent;
-            }
-            if (parent.getValue().compareTo(value) > 0) {
-                return isExist(parent.getLeft(), value);
-            } else {
-                return isExist(parent.getRight(), value);
-            }
-        }
-    }
+
+    
 
     public boolean search(String key) {
         boolean found = search(root, key);
@@ -82,21 +70,7 @@ public class Tree {
         }
     }
 
-    public boolean searchValue(Node parent, String value) {
-        if (parent == null) {                 
-
-            return false;
-        } else {
-            if (parent.getValue().compareTo(value) == 0) {
-                return true;
-            }
-            if (parent.getValue().compareTo(value) > 0) {
-                return search(parent.getLeft(), value);
-            } else {
-                return search(parent.getRight(), value);
-            }
-        }
-    }
+    
 
     public boolean add(String key, String value) {
         Node node = new Node(key, value);
@@ -120,7 +94,6 @@ public class Tree {
             node.setRed(true);
             return node;
         }
-
         if (node.getKey().compareTo(parent.getKey()) < 0) {
             parent.setLeft(insert(parent.getLeft(), node));
             parent.getLeft().setParent(parent);
@@ -259,14 +232,14 @@ public class Tree {
         }
     }
 
-    public String getResultKey(String key) {
+    public String getResult(String key) {
         if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
             System.out.println("not exist");
-            Node similiar = similarKey(root, key);
+            Node similiar = similiar(root, key);
             return similiar.getKey();
         }
         Node node = isExist(root, key);
@@ -274,22 +247,9 @@ public class Tree {
         return result;
     }
 
-    public String getResultValue(String value) {
-        if (value == null) {
-            return null;
-        }
-        boolean exist = searchValue(root, value);
-        if (!exist) {
-            System.out.println("not exist");
-            Node similiar = similarValue(root, value);
-            return similiar.getValue();
-        }
-        Node node = isExistValue(root, value);
-        String result = node.getKey();
-        return result;
-    }
+    
 
-    public Node similarKey(Node parent, String key) {
+    public Node similiar(Node parent, String key) {
         if (parent == null) {
             return null;
         }
@@ -297,9 +257,9 @@ public class Tree {
             return parent;
         }
         if (parent.getKey().compareTo(key) >= 0) {
-            return similarKey(parent.getLeft(), key);
+            return similiar(parent.getLeft(), key);
         } else {
-            return similarKey(parent.getRight(), key);
+            return similiar(parent.getRight(), key);
         }
     }
 
@@ -311,9 +271,9 @@ public class Tree {
             return parent;
         }
         if (parent.getKey().compareTo(key) >= 0) {
-            return similarKey(parent.getLeft(), key);
+            return similiar(parent.getLeft(), key);
         } else {
-            return similarKey(parent.getRight(), key);
+            return similiar(parent.getRight(), key);
         }
     }
 

@@ -72,8 +72,8 @@ public class Tree {
 
     
 
-    public boolean add(String key, String value) {
-        Node node = new Node(key, value);
+    public boolean add(String key, String value,String descEn, String descId) {
+        Node node = new Node(key, value, descEn,descId);
         boolean isThere = search(root, key);
 
         if (isThere) {
@@ -232,7 +232,7 @@ public class Tree {
         }
     }
 
-    public String getResult(String key) {
+    public String getValue(String key) {
         if (key == null) {
             return null;
         }
@@ -243,7 +243,35 @@ public class Tree {
             return similiar.getKey();
         }
         Node node = isExist(root, key);
-        String result = node.getValue();
+        String result = node.getValue()  ;
+        return result;
+    }
+    public String getDescriptionId(String key){
+        if (key == null) {
+            return null;
+        }
+        boolean exist = search(root, key);
+        if (!exist) {
+            System.out.println("not exist");
+            Node similiar = similiar(root, key);
+            return similiar.getKey();
+        }
+        Node node = isExist(root, key);
+        String result = node.getDescId();
+        return result;
+    }
+    public String getDescriptionEn(String key){
+         if (key == null) {
+            return null;
+        }
+        boolean exist = search(root, key);
+        if (!exist) {
+            System.out.println("not exist");
+            Node similiar = similiar(root, key);
+            return similiar.getKey();
+        }
+        Node node = isExist(root, key);
+        String result = node.getDescEn();
         return result;
     }
 

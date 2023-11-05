@@ -72,7 +72,7 @@ public class Node {
         return descEn;
     }
 
-    public void gimmick() {
-
+    public String getGimmick() {
+        return "fuckyou";
     }
 }

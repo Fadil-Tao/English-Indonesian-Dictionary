@@ -3,6 +3,7 @@ package Logic;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,5 +47,9 @@ public class Main {
         System.out.println(" ");
         System.out.println("Indonesian Key : ");
         IdEnTree.inorderTraversal(IdEnTree.getRoot());
+        List<String> node = IdEnTree.similiarList(IdEnTree.getRoot(), "buku");
+        for (int i = 0; i < node.size(); i++) {
+            System.out.println(node.get(i));
+        }   
     }
 }

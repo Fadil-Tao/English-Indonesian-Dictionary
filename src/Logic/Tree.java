@@ -1,5 +1,9 @@
 package Logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Tree {
     private Node root;
 
@@ -239,8 +243,8 @@ public class Tree {
         boolean exist = search(root, key);
         if (!exist) {
             System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
         String result = node.getValue()  ;
@@ -252,9 +256,9 @@ public class Tree {
         }
         boolean exist = search(root, key);
         if (!exist) {
-            System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+             System.out.println("not exist");
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
         String result = node.getDescId();
@@ -266,9 +270,9 @@ public class Tree {
         }
         boolean exist = search(root, key);
         if (!exist) {
-            System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+             System.out.println("not exist");
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
         String result = node.getDescEn();
@@ -277,33 +281,28 @@ public class Tree {
 
     
 
-    public Node similiar(Node parent, String key) {
+    public void similiar(Node parent, String key, List<String> similarKey) {
         if (parent == null) {
-            return null;
+            return;
         }
         if (parent.getKey().compareTo(key) >= 0 && parent.getKey().startsWith(key)) {
-            return parent;
+            similarKey.add(parent.getKey());
         }
-        if (parent.getKey().compareTo(key) >= 0) {
-            return similiar(parent.getLeft(), key);
+        if (parent.getKey().compareTo(key) > 0) {
+             similiar(parent.getLeft(), key, similarKey);
         } else {
-            return similiar(parent.getRight(), key);
+             similiar(parent.getRight(), key, similarKey);
         }
     }
 
-    public Node similarValue(Node parent, String key) {
-        if (parent == null) {
-            return null;
-        }
-        if (parent.getKey().compareTo(key) >= 0 && parent.getKey().startsWith(key)) {
-            return parent;
-        }
-        if (parent.getKey().compareTo(key) >= 0) {
-            return similiar(parent.getLeft(), key);
-        } else {
-            return similiar(parent.getRight(), key);
-        }
+    public List<String> similiarList(Node parent, String key){
+        List<String> similarKey = new ArrayList<>();
+        similiar(parent, key, similarKey);
+        return similarKey;
+
     }
+
+    
 
     public void inorderTraversal(Node node) {
         if (node != null) {

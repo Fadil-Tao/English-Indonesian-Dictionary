@@ -3,7 +3,6 @@ package Logic;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Tree {
     private Node root;
 
@@ -36,7 +35,7 @@ public class Tree {
         return exist;
     }
 
-    private Node isExist(Node parent, String key) {
+    public Node isExist(Node parent, String key) {
         if (parent == null) {
             return parent;
         } else {
@@ -50,8 +49,6 @@ public class Tree {
             }
         }
     }
-
-    
 
     public boolean search(String key) {
         boolean found = search(root, key);
@@ -74,10 +71,8 @@ public class Tree {
         }
     }
 
-    
-
-    public boolean add(String key, String value,String descEn, String descId) {
-        Node node = new Node(key, value, descEn,descId);
+    public boolean add(String key, String value, String descEn, String descId) {
+        Node node = new Node(key, value, descEn, descId);
         boolean isThere = search(root, key);
 
         if (isThere) {
@@ -247,16 +242,17 @@ public class Tree {
             return similiar.get(0);
         }
         Node node = isExist(root, key);
-        String result = node.getValue()  ;
+        String result = node.getValue();
         return result;
     }
-    public String getDescriptionId(String key){
+
+    public String getDescriptionId(String key) {
         if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
-             System.out.println("not exist");
+            System.out.println("not exist");
             List<String> similiar = similiarList(root, key);
             return similiar.get(0);
         }
@@ -264,13 +260,14 @@ public class Tree {
         String result = node.getDescId();
         return result;
     }
-    public String getDescriptionEn(String key){
-         if (key == null) {
+
+    public String getDescriptionEn(String key) {
+        if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
-             System.out.println("not exist");
+            System.out.println("not exist");
             List<String> similiar = similiarList(root, key);
             return similiar.get(0);
         }
@@ -278,8 +275,6 @@ public class Tree {
         String result = node.getDescEn();
         return result;
     }
-
-    
 
     public void similiar(Node parent, String key, List<String> similarKey) {
         if (parent == null) {
@@ -289,20 +284,18 @@ public class Tree {
             similarKey.add(parent.getKey());
         }
         if (parent.getKey().compareTo(key) > 0) {
-             similiar(parent.getLeft(), key, similarKey);
+            similiar(parent.getLeft(), key, similarKey);
         } else {
-             similiar(parent.getRight(), key, similarKey);
+            similiar(parent.getRight(), key, similarKey);
         }
     }
 
-    public List<String> similiarList(Node parent, String key){
+    public List<String> similiarList(Node parent, String key) {
         List<String> similarKey = new ArrayList<>();
         similiar(parent, key, similarKey);
         return similarKey;
 
     }
-
-    
 
     public void inorderTraversal(Node node) {
         if (node != null) {

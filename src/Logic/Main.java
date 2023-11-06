@@ -3,7 +3,6 @@ package Logic;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,15 +40,8 @@ public class Main {
             if (i + 1 < stringArray.length) {
                 EnIdTree.add(stringArray[i + 1], stringArray[i], stringArray[i + 2], stringArray[i+3]);
             }
-        }
-        System.out.println("English Key : ");
-        EnIdTree.inorderTraversal(EnIdTree.getRoot());
-        System.out.println(" ");
-        System.out.println("Indonesian Key : ");
-        IdEnTree.inorderTraversal(IdEnTree.getRoot());
-        List<String> node = IdEnTree.similiarList(IdEnTree.getRoot(), "buku");
-        for (int i = 0; i < node.size(); i++) {
-            System.out.println(node.get(i));
         }   
+        Node node = IdEnTree.isExist(IdEnTree.getRoot(),"jam");
+        node.getGimmick();;
     }
 }

@@ -1,5 +1,8 @@
 package Logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
     private Node root;
 
@@ -32,7 +35,7 @@ public class Tree {
         return exist;
     }
 
-    private Node isExist(Node parent, String key) {
+    public Node isExist(Node parent, String key) {
         if (parent == null) {
             return parent;
         } else {
@@ -46,8 +49,6 @@ public class Tree {
             }
         }
     }
-
-    
 
     public boolean search(String key) {
         boolean found = search(root, key);
@@ -70,10 +71,8 @@ public class Tree {
         }
     }
 
-    
-
-    public boolean add(String key, String value,String descEn, String descId) {
-        Node node = new Node(key, value, descEn,descId);
+    public boolean add(String key, String value, String descEn, String descId) {
+        Node node = new Node(key, value, descEn, descId);
         boolean isThere = search(root, key);
 
         if (isThere) {
@@ -239,76 +238,69 @@ public class Tree {
         boolean exist = search(root, key);
         if (!exist) {
             System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
-        String result = node.getValue()  ;
+        String result = node.getValue();
         return result;
     }
-    public String getDescriptionId(String key){
+
+    public String getDescriptionId(String key) {
         if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
             System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
         String result = node.getDescId();
         return result;
     }
-    public String getDescriptionEn(String key){
-         if (key == null) {
+
+    public String getDescriptionEn(String key) {
+        if (key == null) {
             return null;
         }
         boolean exist = search(root, key);
         if (!exist) {
             System.out.println("not exist");
-            Node similiar = similiar(root, key);
-            return similiar.getKey();
+            List<String> similiar = similiarList(root, key);
+            return similiar.get(0);
         }
         Node node = isExist(root, key);
         String result = node.getDescEn();
         return result;
     }
 
-    
-
-    public Node similiar(Node parent, String key) {
+    public void similiar(Node parent, String key, List<String> similarKey) {
         if (parent == null) {
-            return null;
+            return;
         }
         if (parent.getKey().compareTo(key) >= 0 && parent.getKey().startsWith(key)) {
-            return parent;
+            similarKey.add(parent.getKey());
         }
-        if (parent.getKey().compareTo(key) >= 0) {
-            return similiar(parent.getLeft(), key);
+        if (parent.getKey().compareTo(key) > 0) {
+            similiar(parent.getLeft(), key, similarKey);
         } else {
-            return similiar(parent.getRight(), key);
+            similiar(parent.getRight(), key, similarKey);
         }
     }
 
-    public Node similarValue(Node parent, String key) {
-        if (parent == null) {
-            return null;
-        }
-        if (parent.getKey().compareTo(key) >= 0 && parent.getKey().startsWith(key)) {
-            return parent;
-        }
-        if (parent.getKey().compareTo(key) >= 0) {
-            return similiar(parent.getLeft(), key);
-        } else {
-            return similiar(parent.getRight(), key);
-        }
+    public List<String> similiarList(Node parent, String key) {
+        List<String> similarKey = new ArrayList<>();
+        similiar(parent, key, similarKey);
+        return similarKey;
+
     }
 
     public void inorderTraversal(Node node) {
         if (node != null) {
             inorderTraversal(node.getLeft());
-            System.out.print(node.getKey() + " ");
+            System.out.print(node.getValue() + " ");
             inorderTraversal(node.getRight());
         }
     }

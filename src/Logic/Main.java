@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 public class Main {
     public static void main(String[] args) {
-        String[] stringArray = new String[156];
+        String[] stringArray = new String[84];
         Tree IdEnTree = new Tree(); // Indonesia -> English
         Tree EnIdTree = new Tree(); // English -> Indonesia
         try {
@@ -42,7 +42,7 @@ public class Main {
             }
         }
         // IdEnTree.inorderTraversal(IdEnTree.getRoot());
-        System.out.println(IdEnTree.getRoot().getValue().get(0));
+        System.out.println(IdEnTree.getRoot().getValue());
         System.out.println(EnIdTree.getRoot().getValue());
     }
 }

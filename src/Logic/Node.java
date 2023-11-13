@@ -1,20 +1,23 @@
 package Logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Node {
     private String key;
     private Node right;
     private Node left;
     private Node parent;
     private boolean red;
-    private String value;
-    private String descEn;
-    private String descId;
+    private List<String> value = new ArrayList<String>();
 
     public Node(String key, String value, String descId, String descEn) {
         this.key = key.toLowerCase();
-        this.value = value.toLowerCase();
-        this.descEn = descEn.toLowerCase();
-        this.descId = descId.toLowerCase();
+        this.value.add(value);
+        this.value.add(descEn);
+        this.value.add(descId);
+        
     }
 
     public void setRight(Node right) {
@@ -57,21 +60,14 @@ public class Node {
         this.parent = parent;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(List<String> newValue) {
+        this.value = new ArrayList<>(newValue);
     }
 
-    public String getValue() {
+    public List<String> getValue() {
         return value;
     }
 
-    public String getDescId() {
-        return descId;
-    }
-
-    public String getDescEn() {
-        return descEn;
-    }
 
     public String getGimmick() {
         if (key.compareTo("clock") == 0 || key.compareTo("jam") == 0) {

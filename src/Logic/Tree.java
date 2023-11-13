@@ -231,7 +231,7 @@ public class Tree {
         }
     }
 
-    public String getValue(String key) {
+    public List<String> getValue(String key) {
         if (key == null) {
             return null;
         }
@@ -239,43 +239,14 @@ public class Tree {
         if (!exist) {
             System.out.println("not exist");
             List<String> similiar = similiarList(root, key);
-            return similiar.get(0);
+            return similiar;
         }
         Node node = isExist(root, key);
-        String result = node.getValue();
+        List<String> result = node.getValue();
         return result;
     }
 
-    public String getDescriptionId(String key) {
-        if (key == null) {
-            return null;
-        }
-        boolean exist = search(root, key);
-        if (!exist) {
-            System.out.println("not exist");
-            List<String> similiar = similiarList(root, key);
-            return similiar.get(0);
-        }
-        Node node = isExist(root, key);
-        String result = node.getDescId();
-        return result;
-    }
-
-    public String getDescriptionEn(String key) {
-        if (key == null) {
-            return null;
-        }
-        boolean exist = search(root, key);
-        if (!exist) {
-            System.out.println("not exist");
-            List<String> similiar = similiarList(root, key);
-            return similiar.get(0);
-        }
-        Node node = isExist(root, key);
-        String result = node.getDescEn();
-        return result;
-    }
-
+    
     public void similiar(Node parent, String key, List<String> similarKey) {
         if (parent == null) {
             return;
@@ -294,13 +265,12 @@ public class Tree {
         List<String> similarKey = new ArrayList<>();
         similiar(parent, key, similarKey);
         return similarKey;
-
     }
 
     public void inorderTraversal(Node node) {
         if (node != null) {
             inorderTraversal(node.getLeft());
-            System.out.print(node.getValue() + " ");
+            System.out.print(node.getKey() + " ");
             inorderTraversal(node.getRight());
         }
     }
